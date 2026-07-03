@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pandora - Le tue idee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1d23">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="logo">🪷</div>
+            <h1>Pandora</h1>
+            <p class="subtitle">Apri la scatola delle tue idee</p>
+            <div id="loginError" class="alert" style="display:none;"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label>🔒 Password</label>
+                    <input type="password" id="loginPassword" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary">🚀 Accedi</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="appContainer" class="app-container" style="display:none;">
+        <header class="mobile-header">
+            <button id="btnMenu" class="icon-btn">☰</button>
+            <div class="mobile-title">
+                <span class="logo-small">🪷</span>
+                <h2>Pandora</h2>
+            </div>
+            <button id="btnSearch" class="icon-btn">🔍</button>
+        </header>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-big">🪷</div>
+                <h2>Pandora</h2>
+                <p class="subtitle">La scatola delle tue idee</p>
+            </div>
+            <div class="divider"></div>
+            <div class="counter">📚 <span id="totaleIdee">0</span> idee</div>
+            <div class="divider"></div>
+            <div class="section-title">CATEGORIE</div>
+            <div class="radio-group">
+                <label class="radio-item">
+                    <input type="radio" name="filtro" value="tutte" checked> 🌐 Tutte
+                </label>
+                <label class="radio-item">
+                    <input type="radio" name="filtro" value="personale"> 👤 Personale
+                </label>
+                <label class="radio-item">
+                    <input type="radio" name="filtro" value="business"> 💼 Business
+                </label>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">🔍 CERCA</div>
+            <input type="text" id="ricerca" class="form-control" placeholder="Parola chiave...">
+            <div class="flex-spacer"></div>
+            <button id="btnNuova" class="btn btn-primary btn-lg">➕ NUOVA IDEA</button>
+            <div class="sidebar-footer">
+                👋 matteo • <a href="#" id="btnLogout">Esci</a>
+            </div>
+        </aside>
+
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+        <main class="main-content">
+            <div class="main-header">
+                <h1>📋 Le tue idee</h1>
+                <div class="counter-mobile">📚 <span id="totaleIdeeMobile">0</span></div>
+            </div>
+            <div id="listaIdee" class="lista-idee"></div>
+        </main>
+
+        <aside class="details-panel" id="detailsPanel">
+            <div class="details-scroll">
+                <div class="details-header">
+                    <h3 class="details-title">📝 Dettagli Idea</h3>
+                    <button id="btnCloseDetails" class="close-btn">✕</button>
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">💭</div>
+                    <h4>Nessuna idea selezionata</h4>
+                    <p>Clicca su un'idea dalla lista</p>
+                </div>
+                <div id="editForm" class="edit-form" style="display:none;">
+                    <div class="banner-modifica">
+                        <div class="banner-label">✏️ STAI MODIFICANDO</div>
+                        <div class="banner-title" id="bannerTitolo"></div>
+                    </div>
+                    <div class="section-divider"></div>
+                    <div class="section-label">📂 CATEGORIA E STATO</div>
+                    <label>Categoria</label>
+                    <select id="editCategoria" class="form-control">
+                        <option value="personale">Personale</option>
+                        <option value="business">Business</option>
+                    </select>
+                    <label>Stato</label>
+                    <select id="editStato" class="form-control">
+                        <option value="in_idea">in idea</option>
+                        <option value="in_corso">in corso</option>
+                        <option value="completata">completata</option>
+                        <option value="abbandonata">abbandonata</option>
+                    </select>
+                    <div class="section-divider"></div>
+                    <div class="section-label">🏷️ TITOLO</div>
+                    <input type="text" id="editTitolo" class="form-control">
+                    <div class="section-divider"></div>
+                    <div class="section-label">📄 DESCRIZIONE</div>
+                    <textarea id="editDescrizione" class="form-control" rows="4"></textarea>
+                    <div class="section-divider"></div>
+                    <div class="section-label">🎯 PIANO D'AZIONE</div>
+                    <textarea id="editPiano" class="form-control" rows="5"></textarea>
+                    <div class="timestamp" id="editTimestamp"></div>
+                    <div class="section-divider"></div>
+                    <button id="btnSalva" class="btn btn-success btn-lg">💾 SALVA MODIFICHE</button>
+                    <button id="btnElimina" class="btn btn-danger btn-lg">🗑️ ELIMINA IDEA</button>
+                </div>
+            </div>
+        </aside>
+
+        <nav class="mobile-bottom-nav">
+            <button id="btnMobileNuova" class="nav-btn">
+                <span class="nav-icon">➕</span>
+                <span class="nav-label">Nuova</span>
+            </button>
+            <button id="btnMobileCerca" class="nav-btn">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-label">Cerca</span>
+            </button>
+            <button id="btnMobileCategorie" class="nav-btn">
+                <span class="nav-icon">📂</span>
+                <span class="nav-label">Filtri</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

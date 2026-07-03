@@ -1,0 +1,10 @@
+{
+    "name": "Pandora",
+    "short_name": "Pandora",
+    "description": "La scatola delle tue idee",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#1a1d23",
+    "theme_color": "#1a1d23",
+    "icons": []
+}
